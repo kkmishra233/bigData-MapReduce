@@ -19,10 +19,76 @@ q4 - What are the top 10 order id for a given year by the total_profit
 
 run As:
 
-cat ../geosales.csv  | python3.7 mapper.py > input
+steps to execute map reduce task 
+_________________________________
 
+install docker in the system 
+install git in the system
+git clone git@github.com:big-data-europe/docker-hadoop.git
+cd docker-hadoop
+docker-compose up -d 
+docker ps 
+now enter into containers
+install python on all runninng containers of hadoop
+        > apt-get update
+        > apt-get install python2.7
+or
 
-# * Note:
-# run this only when you want to show all record in output console
-# pd.set_option('display.max_rows', output.shape[0]+1)
-# print(output.reset_index(name='maxvalue').to_string(index=False))
+        apt-get install wget 
+        apt-get install gcc
+        apt-get install make
+        cd /tmp/
+        wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+        tar xzf Python-3.7.6.tgz
+        cd Python-3.7.6
+        ./configure --enable-optimizations --with-ssl
+        make altinstall
+        rm -rf /tmp/Python-3.7.6.tgz /tmp/Python-3.7.6
+
+exit()
+docker exec -it namenode /bin/bash
+cd /
+
+mkdir map_reduce
+chmod -R 777 map_reduce
+exit()
+docker cp <complete_foldeer_content> namenode:/map_reduce/
+
+docker exec -it namenode /bin/bash
+hadoop fs -mkdir -p /input
+hdfs dfs -put ./input/geosales.csv /input/
+
+command :
+
+hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
+-input /input/geosales.csv \
+-output /input/output/q1/ \
+-file /map_reduce/q1/mapper.py -mapper 'python3.7 mapper.py' \
+-file /map_reduce/q1/reducer.py -reducer 'python3.7 reducer.py'
+
+hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
+-input /input/geosales.csv \
+-output /input/output/q2/ \
+-file /map_reduce/q2/mapper.py -mapper 'python3.7 mapper.py' \
+-file /map_reduce/q2/reducer.py -reducer 'python3.7 reducer.py'
+
+hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
+-input /input/geosales.csv \
+-output /input/output/q3/ \
+-file /map_reduce/q3/mapper.py -mapper 'python3.7 mapper.py' \
+-file /map_reduce/q3/reducer.py -reducer 'python3.7 reducer.py'
+
+hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
+-input /input/geosales.csv \
+-output /input/output/q4/ \
+-file /map_reduce/q4/mapper.py -mapper 'python3.7 mapper.py' \
+-file /map_reduce/q4/reducer.py -reducer 'python3.7 reducer.py'
+
+see the output:
+__________________
+
+hdfs dfs -ls /input/output/
+hdfs dfs -cat /input/output/q1/part-00000
+hdfs dfs -cat /input/output/q2/part-00000
+hdfs dfs -cat /input/output/q3/part-00000
+hdfs dfs -cat /input/output/q4/part-00000
