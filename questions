@@ -1,0 +1,28 @@
+As the data analytics team, use the sales transaction data set with about 100K records
+to answer these questions below —
+
+columns : index,region,country,item_type,sales_channel,order_priority,
+order_date,order_id,ship_date,units_sold,unit_price,unit_cost,
+total_revenue,total_cost,total_profit
+
+q1 - Average unit_price by country for a given item type in a certain year
+
+q2 - Total units_sold by year for a given country and a given item type
+
+q3 - Find the max and min units_sold in any order for each year by country
+for a given item type. Use a custom partitioner class instead of default hash based.
+
+q4 - What are the top 10 order id for a given year by the total_profit
+
+
+
+
+run As:
+
+cat ../geosales.csv  | python3.7 mapper.py > input
+
+
+# * Note:
+# run this only when you want to show all record in output console
+# pd.set_option('display.max_rows', output.shape[0]+1)
+# print(output.reset_index(name='maxvalue').to_string(index=False))
