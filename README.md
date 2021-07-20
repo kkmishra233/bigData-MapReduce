@@ -29,27 +29,28 @@ cd docker-hadoop
 docker-compose up -d 
 docker ps 
 now enter into containers
+
 install python on all runninng containers of hadoop
-        docker exec -it namenode bash
-        docker exec -it resourcemanager bash
-        docker exec -it nodemanager bash
-        docker exec -it historyserver bash
-        docker exec -it datanode bash
+docker exec -it namenode bash
+docker exec -it resourcemanager bash
+docker exec -it nodemanager bash
+docker exec -it historyserver bash
+docker exec -it datanode bash
 
-        steps:
-        apt-get update
-        apt-get -y install wget gcc make build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl libbz2-dev
-        cd /tmp/
-        wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
-        tar xzf Python-3.7.6.tgz
-        cd Python-3.7.6
-        ./configure --enable-optimizations
-        make altinstall
-        cd 
-        rm -rf /tmp/Python-3.7.6.tgz /tmp/Python-3.7.6
-        python3.7 -m pip install pandas
-
+steps:
+apt-get update
+apt-get -y install wget gcc make build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl libbz2-dev
+cd /tmp/
+wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz
+tar xzf Python-3.7.6.tgz
+cd Python-3.7.6
+./configure --enable-optimizations
+make altinstall
+rm -rf /tmp/Python-3.7.6.tgz /tmp/Python-3.7.6
+python3.7 -m pip install pandas
 exit()
+
+
 docker exec -it namenode /bin/bash
 cd /
 
@@ -96,3 +97,7 @@ hdfs dfs -cat /input/output/q1/part-00000
 hdfs dfs -cat /input/output/q2/part-00000
 hdfs dfs -cat /input/output/q3/part-00000
 hdfs dfs -cat /input/output/q4/part-00000
+
+get complete output directory in localsystem:
+-----------------------------------------------
+hdfs dfs -get /input/output /map_reduce/
