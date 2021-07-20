@@ -1,13 +1,9 @@
 import sys
 import pandas as pd
 
-def read_mapper_output(file, separator):
-    for line in file:
-        yield line.rstrip().split(separator)
+df = pd.read_csv(sys.stdin)
+df.columns = ['order_year', 'country', 'item_type', 'units_sold']
+output = df.groupby(['order_year','country','item_type']).units_sold.sum().reset_index()
 
-data = read_mapper_output(sys.stdin, separator=',')
-df = pd.DataFrame(data, columns=['order_date', 'country', 'item_type', 'units_sold'])
-output = df.groupby(['order_date', 'country', 'item_type'])['units_sold'].sum()
-
-for key,value in output.to_dict().items():
-    print((",").join(key)+","+value)
+for item in [','.join(element.split()) for element in output.to_string(header=False,index=False).split('\n')]:
+    print(item)

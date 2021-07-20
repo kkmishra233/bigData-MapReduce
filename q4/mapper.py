@@ -11,7 +11,7 @@ for line in sys.stdin:
         continue
     else:
         splits = line.split(",")
-        order_date = splits[column_index_dict['order_date']].split('-')[0]
+        order_year = splits[column_index_dict['order_date']].split('-')[0]
         order_id = splits[column_index_dict['order_id']]
         total_profit = splits[column_index_dict['total_profit']]
-        print(f'{order_date},{order_id},{total_profit}')
+        print(f'{order_year},{order_id},{total_profit}')

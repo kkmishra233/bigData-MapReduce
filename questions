@@ -30,10 +30,7 @@ docker-compose up -d
 docker ps 
 now enter into containers
 install python on all runninng containers of hadoop
-        > apt-get update
-        > apt-get install python2.7
-or
-
+steps:
         apt-get install wget 
         apt-get install gcc
         apt-get install make
