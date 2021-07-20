@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3.7
 
 import sys
 for line in sys.stdin:

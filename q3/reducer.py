@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3.7
+
 import sys
 import pandas as pd
 
