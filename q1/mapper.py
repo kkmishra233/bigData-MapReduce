@@ -14,6 +14,6 @@ for line in sys.stdin:
         splits = line.split(",")
         order_year = splits[column_index_dict['order_date']].split('-')[0]
         country = splits[column_index_dict['country']]
-        item_type = splits[column_index_dict['item_type']]
+        item_type = splits[column_index_dict['item_type']].replace(" ","_")
         unit_price = splits[column_index_dict['unit_price']]
         print(f'{order_year},{country},{item_type},{unit_price}')
