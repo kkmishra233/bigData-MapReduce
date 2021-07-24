@@ -83,37 +83,43 @@ chmod -R 777 map_reduce
 
 exit()
 
-docker cp <complete_foldeer_content> namenode:/map_reduce/
+docker cp hadoop-streaming-3.2.1.jar namenode:/map_reduce/
+docker cp geosales.csv namenode:/map_reduce/
+docker cp q1 namenode:/map_reduce/
+docker cp q2 namenode:/map_reduce/
+docker cp q3 namenode:/map_reduce/
+docker cp q4 namenode:/map_reduce/
 
 docker exec -it namenode /bin/bash
 
-hadoop fs -mkdir -p /input
+hadoop fs -mkdir -p /geosales
 
-hdfs dfs -put ./input/geosales.csv /input/
+hdfs dfs -put geosales.csv /geosales/
+
 
 command :
 ========
 hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
--input /input/geosales.csv \
--output /input/output/q1/ \
+-input /geosales/geosales.csv \
+-output /geosales/output/q1/ \
 -file /map_reduce/q1/mapper.py -mapper 'python3.7 mapper.py' \
 -file /map_reduce/q1/reducer.py -reducer 'python3.7 reducer.py'
 
 hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
--input /input/geosales.csv \
--output /input/output/q2/ \
+-input /geosales/geosales.csv \
+-output /geosales/output/q2/ \
 -file /map_reduce/q2/mapper.py -mapper 'python3.7 mapper.py' \
 -file /map_reduce/q2/reducer.py -reducer 'python3.7 reducer.py'
 
 hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
--input /input/geosales.csv \
--output /input/output/q3/ \
+-input /geosales/geosales.csv \
+-output /geosales/output/q3/ \
 -file /map_reduce/q3/mapper.py -mapper 'python3.7 mapper.py' \
 -file /map_reduce/q3/reducer.py -reducer 'python3.7 reducer.py'
 
 hadoop jar /map_reduce/hadoop-streaming-3.2.1.jar \
--input /input/geosales.csv \
--output /input/output/q4/ \
+-input /geosales/geosales.csv \
+-output /geosales/output/q4/ \
 -file /map_reduce/q4/mapper.py -mapper 'python3.7 mapper.py' \
 -file /map_reduce/q4/reducer.py -reducer 'python3.7 reducer.py'
 
